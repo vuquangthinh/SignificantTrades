@@ -42,7 +42,7 @@ class Server extends EventEmitter {
 			// enable websocket server on startup (if you only use this for storing trade data set to false)
 			websocket: true,
 
-			// storage solution, either 
+			// storage solution, either
 			// "none" (no storage, everything is wiped out after broadcast)
 			// "files" (periodical text file),
 			// "influx" (timeserie database),
@@ -364,12 +364,12 @@ class Server extends EventEmitter {
 						return;
 					}
 
-					let maxFetchInterval = 1000 * 60 * 60 * 4; 
+					let maxFetchInterval = 1000 * 60 * 60 * 8;
 
 					if (this.storage.format === 'tick') {
 						maxFetchInterval *= 365;
 
-						timeframe = parseInt(timeframe) || 1000 * 60; // default to 1m					
+						timeframe = parseInt(timeframe) || 1000 * 60; // default to 1m
 						from = Math.floor(from / timeframe) * timeframe;
 						to = Math.floor(to / timeframe) * timeframe;
 

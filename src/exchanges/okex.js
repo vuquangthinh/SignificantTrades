@@ -756,6 +756,10 @@ class Okex extends Exchange {
           return
         }
 
+         // console.log(type, instrumentId, liquidations.map(trade => trade.price + ' * ' + trade.size + ' (' + ((trade.size * this.lqProductsContractValues[instrumentId]) / trade.price) + ')'))
+
+        this.lqProductsTimestamps[instrumentId] = +new Date(liquidations[0].created_at)
+
         this.emitData(
           liquidations.map(trade => {
             const timestamp = +new Date(trade.created_at)

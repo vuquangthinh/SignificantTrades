@@ -36,7 +36,7 @@ $icon-expand: \e909;
 $icon-volume-muted: \e919;
 $icon-volume: \e91a;
 
-$exchanges: bitmex binance bitfinex okex huobi bitstamp gdax hitbtc poloniex kraken deribit bybit;
+$exchanges: bitmex binance binance_futures bitfinex okex huobi bitstamp gdax hitbtc poloniex kraken deribit bybit;
 
 @function unicode($str) {
   @return unquote("\"") + $str + unquote("\"");

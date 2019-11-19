@@ -215,13 +215,17 @@
           image = 'url(\'' + image + '\')';
         }
 
+        if (trade[0].length > 10) {
+          classname.push('sm');
+        }
+
         this.trades.unshift({
           id: Math.random().toString(36).substring(7),
           background: color.background,
           foreground: color.foreground,
           side: trade[4] > 0 ? 'BUY' : 'SELL',
           size: trade[3],
-          exchange: trade[0],
+          exchange: trade[0].replace(/_/, ' '),
           price: formatPrice(trade[2]),
           amount: amount,
           classname: classname.map(a => '-' + a).join(' '),
@@ -500,6 +504,13 @@
       padding: 10px 7px;
       box-shadow: 0 0 20px rgba(red, .5);
       z-index: 1;
+    }
+
+    &.-sm {
+      .trades__item__exchange {
+        font-size: .85em;
+        letter-spacing: -.25px;
+      }
     }
 
     > div {

@@ -169,6 +169,7 @@ class Bitfinex extends Exchange {
           this.price = +json[2][3];
 
           return [[
+            this.id,
             +new Date(json[2][1]),
             +json[2][3],
             Math.abs(json[2][2]),
@@ -183,6 +184,7 @@ class Bitfinex extends Exchange {
         }
 
         console.log('status payload', json[1], JSON.stringify(json[1].filter(a => a[4] === 't' + this.pair).map(a => [
+          this.id,
           parseInt(a[2]),
           this.price,
           Math.abs(a[5]),
@@ -191,6 +193,7 @@ class Bitfinex extends Exchange {
         ])));
 
         return json[1].filter(a => a[4] === 't' + this.pair).map(a => [
+          this.id,
           parseInt(a[2]),
           this.price,
           Math.abs(a[5]),

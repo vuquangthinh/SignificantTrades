@@ -589,7 +589,7 @@ class Okex extends Exchange {
         size = ((trade.size || trade.qty) * (/^BTC/.test(this.pair) ? 100 : 10)) / trade.price
       }
 
-      return [+new Date(trade.timestamp), +trade.price, size, trade.side === 'buy' ? 1 : 0]
+      return [this.id, +new Date(trade.timestamp), +trade.price, size, trade.side === 'buy' ? 1 : 0]
     })
   }
 
@@ -765,7 +765,7 @@ class Okex extends Exchange {
             const timestamp = +new Date(trade.created_at)
             const size = (trade.size * this.lqProductsContractValues[instrumentId]) / trade.price
 
-            return [timestamp, +trade.price, size, trade.type === '4' ? 1 : 0, 1]
+            return [this.id, timestamp, +trade.price, size, trade.type === '4' ? 1 : 0, 1]
           })
         )
       })

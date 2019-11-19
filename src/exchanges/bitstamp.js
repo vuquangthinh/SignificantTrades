@@ -42,7 +42,7 @@ class Bitstamp extends Exchange {
 	}
 
 	connect(pair) {
-    if (!super.connect(pair))  
+    if (!super.connect(pair))
       return;
 
     this.api = new Pusher(this.options.appId);
@@ -56,9 +56,9 @@ class Bitstamp extends Exchange {
 	}
 
 	disconnect() {
-    if (!super.disconnect())  
+    if (!super.disconnect())
       return;
-      
+
     if (this.api && this.api.connection.state === 'connected') {
       this.api.disconnect();
     }
@@ -66,6 +66,7 @@ class Bitstamp extends Exchange {
 
 	format(trade) {
     return [[
+      this.id,
       +new Date(trade.timestamp * 1000),
       trade.price,
       trade.amount,

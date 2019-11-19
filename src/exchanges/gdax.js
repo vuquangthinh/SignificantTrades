@@ -38,7 +38,7 @@ class Gdax extends Exchange {
 	}
 
 	connect(pair) {
-    if (!super.connect(pair))  
+    if (!super.connect(pair))
       return;
 
 		this.api = new WebSocket(this.getUrl());
@@ -51,6 +51,7 @@ class Gdax extends Exchange {
 
       if (obj && obj.type === 'match') {
         this.emitData([[
+          this.id,
           +new Date(obj.time),
           +obj.price,
           +obj.size,

@@ -422,6 +422,7 @@ class Deribit extends Exchange {
 
 		return json.params.data.map(trade => {
 			return [
+        this.id,
 				+trade.timestamp,
 				+trade.price,
 				trade.amount / trade.price,

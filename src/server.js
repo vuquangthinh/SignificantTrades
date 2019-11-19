@@ -134,8 +134,14 @@ class Server extends EventEmitter {
 	}
 
 	initStorage() {
-		if (this.options.storage) {
-			this.storage = new (require(`./storage/${this.options.storage}`))(this.options);
+		if (this.options.storage && this.options.storage !== 'none') {
+      try {
+        this.storage = new (require(`./storage/${this.options.storage}`))(this.options);
+      } catch (error) {
+        console.log(error);
+
+        return Promise.resolve();
+      }
 
 			console.log(`[server/backup] Using "${this.options.storage}" storage solution`);
 
@@ -164,14 +170,12 @@ class Server extends EventEmitter {
 	handleExchangesEvents() {
 		this.exchanges.forEach(exchange => {
 			exchange.on('data', event => {
-				this.timestamps[event.exchange] = +new Date();
+        this.timestamps[event.exchange] = +new Date();
 
 				this.stats.trades += event.data.length;
 
 				for (let trade of event.data) {
-					this.stats.volume += trade[2];
-
-					trade.unshift(event.exchange);
+					this.stats.volume += trade[3];
 
 					this.chunk.push(trade);
 
@@ -347,8 +351,12 @@ class Server extends EventEmitter {
 			const routes = [{
 				match: /.*historical\/(\d+)\/(\d+)(?:\/(\d+))?\/?$/,
 				response: (from, to, timeframe) => {
+          if (!this.storage) {
+            return;
+          }
+
 					showHelloWorld = false;
-					response.setHeader('Content-Type', 'application/json');
+          response.setHeader('Content-Type', 'application/json');
 
 					if (this.lockFetch) {
 						setTimeout(function() {
@@ -454,7 +462,7 @@ class Server extends EventEmitter {
 			}
 
 			if (!response.finished && showHelloWorld) {
-				response.writeHead(404);
+				response.writeHead(200);
 				response.end(`
 					<!DOCTYPE html>
 					<html>

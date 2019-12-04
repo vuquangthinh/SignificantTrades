@@ -89,11 +89,10 @@ class Exchange extends EventEmitter {
 		for (let trade of data) {
 			const id = trade[1] + '_' + trade[4];
 
-			if (group[id] && !group[id][4]) {
+			if (group[id] && !group[id][5]) {
 				group[id][2].push(trade[2]);
 				group[id][3].push(trade[3]);
 			} else {
-				trade[1] = Math.min(now + 1000, trade[1]);
 				trade[2] = [trade[2]];
 				trade[3] = [trade[3]];
 				group[id] = trade;

@@ -162,7 +162,7 @@ class Server extends EventEmitter {
 			return Promise.resolve();
 		}
 
-		console.log(`[server/storage] backup ${this.chunk.length} trades`);
+  	process.stdout.write(`[server/storage] backup ${this.chunk.length} trades\r`)
 
 		return this.storage.save(this.chunk.splice(0, this.chunk.length));
 	}

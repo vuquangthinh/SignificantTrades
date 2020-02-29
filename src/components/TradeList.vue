@@ -564,7 +564,7 @@ export default {
   }
 
   &.-huge {
-    font-size: 1em;
+    font-size: .95em;
     padding: 0.4em 0.5em;
 
     > div {

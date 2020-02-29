@@ -7,6 +7,7 @@ const emitter = new Vue({
       maxRows: 20,
       compactRows: false,
       showLogos: false,
+      showSlippage: false,
       pair: 'BTCUSD',
       avgPeriods: 2,
       timeframe: '1.5%',

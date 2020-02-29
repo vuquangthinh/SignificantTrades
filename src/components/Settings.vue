@@ -23,6 +23,13 @@
             <div></div>
           </label>
         </div>
+        <div class="form-group">
+          <label>&nbsp;</label>
+          <label class="checkbox-control flex-right" v-tippy title="Show slippage">
+            <input type="checkbox" class="form-control" v-model="options.showSlippage">
+            <div></div>
+          </label>
+        </div>
       </div>
       <div class="mt8 settings__title" v-on:click="toggleSection('chart')" v-bind:class="{closed: options.settings.indexOf('chart') > -1}">Chart <i class="icon-up"></i></div>
       <div>
@@ -606,7 +613,7 @@
       }
 
       .form-group:last-child > label:first-child:before {
-        content: 'Compact | Logos';
+        content: 'Compact | Logos | Slippage';
         position: absolute;
         right: 0;
         white-space: nowrap;

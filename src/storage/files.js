@@ -146,7 +146,7 @@ class FilesStorage {
 	}
 
 	fetch(from, to, timeframe) {
-		if (from >= this.cache[0][1]) {
+		if (this.cache.length && from >= this.cache[0][1]) {
 			console.log(`[storage/files] fetch using cache (${new Date(from).toUTCString()} to ${new Date(to).toUTCString()})`)
 
 			let fromIndex;

@@ -35,7 +35,11 @@ if (process.argv.length > 2) {
 		if (keyvalue.length === 1) {
 			exchanges.push(arg);
 		} else {
-			config[keyvalue[0]] = keyvalue[1];
+			try {
+				config[keyvalue[0]] = JSON.parse(keyvalue[1]);
+			} catch (error) {
+				config[keyvalue[0]] = keyvalue[1];
+			}
 		}
 	})
 

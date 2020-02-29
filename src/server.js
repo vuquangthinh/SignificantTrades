@@ -39,10 +39,13 @@ class Server extends EventEmitter {
 			// admin access type (whitelist, all, none)
 			admin: 'whitelist',
 
-			// enable websocket server on startup (if you only use this for storing trade data set to false)
+			// enable websocket server (if you only use this for storing trade data set to false)
 			websocket: true,
 
-			// storage solution, either
+			// enable api (historical/{from: timestamp}/{to: timestamp})
+			api: true,
+
+			// storage solution, either 
 			// "none" (no storage, everything is wiped out after broadcast)
 			// "files" (periodical text file),
 			// "influx" (timeserie database),
@@ -126,7 +129,9 @@ class Server extends EventEmitter {
 			}
 
 			setTimeout(() => {
-				console.log(`[server] Fetch API unlocked`);
+				if (this.options.api) {
+					console.log(`[server] Fetch API unlocked`);
+				}
 
 				this.lockFetch = false;
 			}, 1000 * 60);
@@ -316,6 +321,10 @@ class Server extends EventEmitter {
 	}
 
 	createHTTPServer() {
+		if (!this.options.api) {
+			return;
+		}
+
 		this.http = http.createServer((req, response) => {
 			response.setHeader('Access-Control-Allow-Origin', '*');
 

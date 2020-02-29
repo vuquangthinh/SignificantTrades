@@ -129,7 +129,10 @@ class InfluxStorage {
           .sort((a, b) => a.timestamp - b.timestamp)
       )
       .catch(error => {
-        console.error(`[storage/files] failed to retrieves trades between ${from} and ${to} with timeframe ${timeframe}\n\t`, error.message)
+        console.error(
+          `[storage/influx] failed to retrieves trades between ${from} and ${to} with timeframe ${timeframe}\n\t`,
+          error.message
+        )
       })
   }
 }

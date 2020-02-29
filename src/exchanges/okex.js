@@ -646,7 +646,7 @@ class Okex extends Exchange {
     }
 
     const setupTimer = () => {
-      console.log('Schedule get futures products', new Date(+new Date() + msUntilExpiration))
+      console.log('[okex] schedule get futures products', new Date(+new Date() + msUntilExpiration))
 
       this.periodicFuturesRefreshTimeout = setTimeout(() => {
         msUntilExpiration = 1000 * 60 * 60 * 24 * 7
@@ -671,7 +671,6 @@ class Okex extends Exchange {
 
     for (let i = 0; i < products.length; i++) {
       if (new RegExp('^' + this.pair.split('-')[0] + 'USD-').test(products[i])) {
-        console.log('add', products[i], this.pairs[products[i]], 'to lq products')
         this.lqProducts.push(this.pairs[products[i]])
         this.lqProductsTimestamps[this.pairs[products[i]]] = now
       }
@@ -697,7 +696,7 @@ class Okex extends Exchange {
 
     const token = axios.CancelToken
     this.productRequest = token.source()
-    console.log('getProducts', type);
+    console.log('[okex] getProducts', type);
 
     return axios
       .get(`https://www.okex.com/api/${type}/v3/instruments`)

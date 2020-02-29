@@ -64,6 +64,9 @@ class Server extends EventEmitter {
 			// create new text file every N ms when storage is set to "file"
 			filesInterval: 3600000,
 
+			// default place to store the trades data files
+			filesLocation: './data'
+
 		}, options);
 
 		if (!this.options.exchanges || !this.options.exchanges.length) {
@@ -83,8 +86,7 @@ class Server extends EventEmitter {
 			trades: 0,
 			volume: 0,
 			hits: 0,
-			unique: 0,
-			ips: [],
+			unique: 0
 		}
 
 		if (fs.existsSync('./persistence.json')) {
@@ -241,10 +243,6 @@ class Server extends EventEmitter {
 			const usage = this.getUsage(ip);
 
 			this.stats.hits++;
-
-			if (this.stats.ips.indexOf(ip) === -1) {
-				this.stats.ips.push(ip);
-			}
 
 			const data = {
 				type: 'welcome',
@@ -655,39 +653,6 @@ class Server extends EventEmitter {
 	}
 
 	updatePersistence() {
-		if (this.stats.ips) {
-			let clients = this.stats.ips;
-			let archived = 0;
-
-			if (fs.existsSync('./clients.txt')) {
-				clients = (fs.readFileSync('./clients.txt', 'utf8') || '')
-					.trim()
-					.split("\n")
-					.filter(a => a.length);
-
-				clients = clients
-					.concat(this.stats.ips);
-
-				clients = clients.filter((a, i) => clients.indexOf(a) === i);
-
-				this.stats.unique = clients.length;
-			} else {
-				this.stats.unique = this.stats.ips.length;
-			}
-
-			this.stats.ips.length && console.log(`[clean] wiped ${this.stats.ips.length} ips from memory`);
-
-			this.emit('unique', this.stats.unique);
-
-			this.stats.ips = [];
-
-			fs.writeFile('clients.txt', clients.join("\n"), err => {
-				if (err) {
-					console.error(`[persistence] Failed to write clients.txt\n\t`, err);
-				}
-			});
-		}
-
 		return new Promise((resolve, reject) => {
 			fs.writeFile('persistence.json', JSON.stringify({
 				stats: this.stats,

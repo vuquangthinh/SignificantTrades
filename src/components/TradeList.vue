@@ -277,7 +277,9 @@ export default {
 
       const isScrollbarVisible = window.app.clientHeight > window.innerHeight;
       if (this.isScrollbarVisible !== isScrollbarVisible) {
-        window.dispatchEvent(new Event('resize'));
+        if (isScrollbarVisible) {
+          window.dispatchEvent(new Event('resize'));
+        }
         this.isScrollbarVisible = isScrollbarVisible;
       }
     },

@@ -84,7 +84,6 @@ class Exchange extends EventEmitter {
 		}
 
 		const group = {};
-		const now = +new Date();
 
 		for (let trade of data) {
 			const id = trade[1] + '_' + trade[4];

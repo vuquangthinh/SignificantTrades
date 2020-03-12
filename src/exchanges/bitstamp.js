@@ -75,7 +75,7 @@ class Bitstamp extends Exchange {
   disconnect() {
     if (!super.disconnect()) return
 
-    if (this.api && this.api.connection.state === 'connected') {
+    if (this.api && this.api.readyState < 2) {
       this.api.disconnect()
     }
   }

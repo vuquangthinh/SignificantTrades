@@ -134,10 +134,10 @@
       }
     },
     mounted() {
+      socket.connect();
+
       socket.fetch(1, null, true, false)
-        .then((response, err) => {
-          !err && socket.connect();
-        }).catch(error => {
+        .catch(error => {
           socket.$emit('alert', {
             type: 'error',
             id: `fetch_error`,

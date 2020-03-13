@@ -77,6 +77,10 @@ class FilesStorage {
 	}
 
 	reviewCache() {
+		if (!this.options.api) {
+			return;
+		}
+		
 		const now = +new Date();
 		const threshold = now - this.options.filesInterval;
 		let i;
@@ -112,7 +116,9 @@ class FilesStorage {
 				output[ts] += chunk[i].join(' ') + '\n';
 			}
 
-			this.cache = this.cache.concat(chunk.splice(0, chunk.length));
+			if (this.options.api) {
+				this.cache = this.cache.concat(chunk.splice(0, chunk.length));
+			}
 
 			const promises = [];
 

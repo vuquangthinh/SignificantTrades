@@ -1428,7 +1428,7 @@ export default {
         color: state ? '#fff' : '#222',
         shadow: state
           ? {
-              color: 'rgba(255, 255, 255, .15)',
+              color: 'rgba(255, 255, 255, .05)',
               width: 15,
               offsetX: 0,
               offsetY: 0

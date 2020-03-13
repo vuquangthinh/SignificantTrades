@@ -43,8 +43,8 @@ import options from '../services/options'
 import socket from '../services/socket'
 import Sfx from '../services/sfx'
 
-const slipRef = {};
-let isScrollbarVisible = false;
+const slipRef = {}
+let isScrollbarVisible = false
 
 export default {
   data() {
@@ -148,7 +148,9 @@ export default {
         const size = trade[2] * trade[3]
 
         if (trade[5] === 1) {
-          this.sfx && !silent && this.sfx.liquidation()
+          this.sfx &&
+            !silent &&
+            this.sfx.liquidation(size / options.significantTradeThreshold)
 
           if (size >= options.threshold * (trade[0] === 'bitmex' ? 1 : 0.75)) {
             this.appendRow(
@@ -243,15 +245,18 @@ export default {
         classname.push('sm')
       }
 
-      let slippage;
+      let slippage
 
       if (options.showSlippage) {
-        slippage = (trade[2] - slipRef[trade[0]]).toFixed(1);
+        slippage = (trade[2] - slipRef[trade[0]]).toFixed(1)
 
         if (slippage > 1 || slippage < -1) {
-          slippage = (slippage > 0 ? '+' : '-') + app.getAttribute('data-symbol') + Math.abs(slippage)
+          slippage =
+            (slippage > 0 ? '+' : '-') +
+            app.getAttribute('data-symbol') +
+            Math.abs(slippage)
         } else {
-          slippage = null;
+          slippage = null
         }
       }
 
@@ -275,12 +280,12 @@ export default {
         message: message
       })
 
-      const isScrollbarVisible = window.app.clientHeight > window.innerHeight;
+      const isScrollbarVisible = window.app.clientHeight > window.innerHeight
       if (this.isScrollbarVisible !== isScrollbarVisible) {
         if (isScrollbarVisible) {
-          window.dispatchEvent(new Event('resize'));
+          window.dispatchEvent(new Event('resize'))
         }
-        this.isScrollbarVisible = isScrollbarVisible;
+        this.isScrollbarVisible = isScrollbarVisible
       }
     },
     getGifs(refresh) {
@@ -566,7 +571,7 @@ export default {
   }
 
   &.-huge {
-    font-size: .95em;
+    font-size: 0.95em;
     padding: 0.4em 0.5em;
 
     > div {

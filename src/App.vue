@@ -135,16 +135,6 @@
     },
     mounted() {
       socket.connect();
-
-      socket.fetch(1, null, true, false)
-        .catch(error => {
-          socket.$emit('alert', {
-            type: 'error',
-            id: `fetch_error`,
-            title: `Sorry, can't reach the server.`,
-            message: `Please come back later.`,
-          });
-        })
     },
     methods: {
       updatePairCurrency(pair) {
